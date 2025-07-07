@@ -569,13 +569,13 @@
         animation: twinkle 2s ease-in-out infinite alternate;
     }
 
-    .decorative-pattern .sunburst:nth-child(2) {
+    .decorative-pattern .sunburst .sunburst:nth-child(2) {
         animation-delay: 0.5s;
         font-size: 20px;
         color: var(--muted-gold);
     }
 
-    .decorative-pattern .sunburst:nth-child(4) {
+    .decorative-pattern .sunburst .sunburst:nth-child(4) {
         animation-delay: 1s;
         font-size: 20px;
         color: var(--cool-cyan);
@@ -597,39 +597,36 @@
         }
     }
 
-    /* DJ Grid Layout */
-    .dj-grid-top {
+    /* DJ Grid Layout - Single responsive grid */
+    .dj-grid-all {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .dj-grid-bottom {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.5rem;
-        max-width: 80%;
-        margin: 0 auto;
+        justify-items: center;
     }
 
     @media (max-width: 1024px) {
-        .dj-grid-top {
+        .dj-grid-all {
             grid-template-columns: repeat(3, 1fr);
-        }
-        .dj-grid-bottom {
-            grid-template-columns: repeat(3, 1fr);
-            max-width: 90%;
         }
     }
 
     @media (max-width: 768px) {
-        .dj-grid-top {
-            grid-template-columns: repeat(2, 1fr);
+        .dj-grid-all {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
         }
-        .dj-grid-bottom {
+    }
+
+    @media (max-width: 480px) {
+        .dj-grid-all {
             grid-template-columns: repeat(2, 1fr);
-            max-width: 100%;
+            gap: 1rem;
+        }
+        
+        .dj-grid-all .artist-sunburst {
+            width: 120px !important;
+            height: 120px !important;
         }
     }
 
@@ -895,9 +892,7 @@
             <div class="modern-text text-xl md:text-3xl mb-2" style="color: var(--deep-charcoal);">
                 August 1st 9pm - August 2nd 9pm
             </div>
-            <div class="accent-text text-lg md:text-2xl mb-4" style="color: var(--muted-gold);">
-                Bay Area Studio Experience
-            </div>
+            
             
             <!-- New Quote Section -->
             <div class="max-w-4xl mx-auto mt-8">
@@ -1088,8 +1083,8 @@
     <div class="max-w-7xl mx-auto">
         <h3 class="accent-text text-5xl text-center mb-12 text-shadow-warm" style="color: var(--muted-gold);">AND FRIENDS</h3>
         
-        <!-- Top Row - 5 DJs -->
-        <div class="dj-grid-top">
+        <!-- Single responsive grid for all DJs -->
+        <div class="dj-grid-all">
             <div class="text-center">
                 <div class="artist-sunburst mb-4" style="width: 150px; height: 150px;">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-frpDiS6pBkdshpuhfD0OPWeBMhrJFs.png" alt="Coflo" class="coflo-img">
@@ -1120,10 +1115,6 @@
                 </div>
                 <p class="modern-text text-base" style="color: var(--deep-charcoal);">Spiñorita</p>
             </div>
-        </div>
-
-        <!-- Bottom Row - 4 DJs (centered) -->
-        <div class="dj-grid-bottom">
             <div class="text-center">
                 <div class="artist-sunburst mb-4" style="width: 150px; height: 150px;">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-09%20at%2011.53.21%E2%80%AFAM-JeMSU2nIH4gwIvlLgm3r3RvyvI1aWn.png" alt="SEEPS" class="seeps-img">
