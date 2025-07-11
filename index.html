@@ -1,772 +1,1093 @@
-import Navigation from "@/components/navigation"
-import Image from "next/image"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEVEN: 24 Hours at a Time</title>
+    <meta name="description" content="A Berkeley Dance Party + Fundraiser for the voice of Chicago house music">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue:wght@400&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Mailchimp CSS -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+    
+    <style>
+        :root {
+            --soft-cream: #f4f2e8;
+            --bold-orange: #e07f1c;
+            --deep-charcoal: #2c2c2c;
+            --cool-cyan: #4c89a7;
+            --muted-gold: #9a7244;
+            --pure-white: #ffffff;
+            --light-gray: #e8e8e8;
+            --medium-gray: #6b6b6b;
+        }
 
-export default function Home() {
-  return (
-    <div className="min-h-screen">
-      {/* Background shapes */}
-      <div className="organic-shape" style={{ width: "300px", height: "300px", top: "10%", left: "-5%" }}></div>
-      <div
-        className="organic-shape"
-        style={{ width: "200px", height: "200px", top: "60%", right: "-3%", animationDelay: "2s" }}
-      ></div>
-      <div
-        className="organic-shape"
-        style={{ width: "250px", height: "250px", bottom: "20%", left: "70%", animationDelay: "4s" }}
-      ></div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      <Navigation />
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, var(--soft-cream), var(--light-gray));
+            color: var(--deep-charcoal);
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
 
-      {/* Header */}
-      <header id="home" className="relative py-16 px-4 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="bold-title text-6xl md:text-7xl gradient-text mb-6 text-shadow-warm">24 HOURS AT A TIME</h1>
+        html {
+            scroll-behavior: smooth;
+        }
 
-            <h2 className="accent-text text-5xl md:text-6xl mb-4" style={{ color: "var(--deep-charcoal)" }}>
-              WITH PEVEN & FRIENDS
-            </h2>
+        .bold-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
 
-            <div className="decorative-pattern justify-center mb-4">
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
+        .modern-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .accent-text {
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 0.1em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--deep-charcoal), var(--bold-orange), var(--muted-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .earth-card {
+            background: rgba(244, 242, 232, 0.95);
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--bold-orange);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(224, 127, 28, 0.2);
+        }
+
+        .modern-button {
+            background: var(--bold-orange);
+            color: var(--pure-white);
+            border: none;
+            border-radius: 15px;
+            padding: 18px 35px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(224, 127, 28, 0.4);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .modern-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(224, 127, 28, 0.6);
+            background: var(--muted-gold);
+            color: var(--pure-white);
+        }
+
+        .artist-sunburst {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+
+        .artist-sunburst:hover {
+            transform: scale(1.05);
+        }
+
+        .artist-sunburst::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(
+                var(--bold-orange) 0deg,
+                var(--cool-cyan) 45deg,
+                var(--bold-orange) 90deg,
+                var(--muted-gold) 135deg,
+                var(--bold-orange) 180deg,
+                var(--cool-cyan) 225deg,
+                var(--bold-orange) 270deg,
+                var(--muted-gold) 315deg,
+                var(--bold-orange) 360deg
+            );
+            border-radius: 50%;
+            animation: rotate 8s linear infinite;
+            z-index: -1;
+        }
+
+        .artist-sunburst img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--soft-cream);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .organic-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            background: var(--cool-cyan);
+            opacity: 0.1;
+            position: absolute;
+            animation: morphing 8s ease-in-out infinite;
+        }
+
+        @keyframes morphing {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        .text-shadow-warm {
+            text-shadow: 2px 2px 1px rgba(224, 127, 28, 0.2);
+        }
+
+        .ticket-card {
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .ticket-premium {
+            background: linear-gradient(135deg, var(--bold-orange), #ff9a3d);
+        }
+
+        .ticket-stream {
+            background: linear-gradient(135deg, var(--deep-charcoal), var(--muted-gold));
+        }
+
+        .ticket-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .ticket-feature::before {
+            content: "✷";
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--pure-white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .decorative-pattern {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .sunburst {
+            font-size: 16px;
+            color: var(--bold-orange);
+            margin: 0 8px;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        .sunburst:nth-child(2) {
+            animation-delay: 0.5s;
+            font-size: 20px;
+            color: var(--muted-gold);
+        }
+
+        .sunburst:nth-child(4) {
+            animation-delay: 1s;
+            font-size: 20px;
+            color: var(--cool-cyan);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(244, 242, 232, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--bold-orange);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--deep-charcoal), var(--bold-orange), var(--muted-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--deep-charcoal);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: var(--bold-orange);
+            color: var(--pure-white);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-button {
+            background: var(--bold-orange);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: var(--pure-white);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        /* Layout utilities */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            padding: 3rem 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-16 { margin-bottom: 4rem; }
+
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-10 { padding: 2.5rem; }
+        .p-16 { padding: 4rem; }
+
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-6xl { font-size: 3.75rem; }
+        .text-7xl { font-size: 4.5rem; }
+
+        /* DJ Grid */
+        .dj-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            justify-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dj-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            justify-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dj-item {
+            text-align: center;
+        }
+
+        .dj-item .artist-sunburst {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Peven Bio */
+        .peven-bio {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .peven-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .peven-text {
+            padding: 0 1rem;
+        }
+
+        .peven-text p {
+            text-align: center;
+            text-indent: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+            .mobile-menu-button {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-4, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+            .dj-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .dj-grid-bottom {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .peven-bio {
+                grid-template-columns: 1fr;
+            }
+            .peven-content {
+                grid-template-columns: 1fr;
+            }
+            .text-6xl { font-size: 2.5rem; }
+            .text-7xl { font-size: 3rem; }
+        }
+
+        /* Mailchimp Styling */
+        #mc_embed_signup {
+            background: transparent !important;
+            clear: left;
+            font: 14px 'Space Grotesk', sans-serif !important;
+            width: 100% !important;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #mc_embed_signup h2 {
+            display: none !important;
+        }
+
+        #mc_embed_signup .mc-field-group {
+            margin-bottom: 1rem !important;
+        }
+
+        #mc_embed_signup label {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-weight: 600 !important;
+            color: var(--deep-charcoal) !important;
+            font-size: 0.9rem !important;
+            margin-bottom: 0.5rem !important;
+            display: block !important;
+        }
+
+        #mc_embed_signup input[type="email"],
+        #mc_embed_signup input[type="text"] {
+            background: rgba(244, 242, 232, 0.9) !important;
+            border: 2px solid var(--cool-cyan) !important;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            color: var(--deep-charcoal) !important;
+            transition: all 0.3s ease !important;
+            width: 100% !important;
+            font-size: 14px !important;
+        }
+
+        #mc_embed_signup input[type="email"]:focus,
+        #mc_embed_signup input[type="text"]:focus {
+            outline: none !important;
+            border-color: var(--bold-orange) !important;
+            box-shadow: 0 0 0 3px rgba(224, 127, 28, 0.2) !important;
+        }
+
+        #mc_embed_signup .button {
+            background: var(--bold-orange) !important;
+            color: var(--pure-white) !important;
+            border: none !important;
+            border-radius: 15px !important;
+            padding: 18px 30px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 8px 20px rgba(224, 127, 28, 0.4) !important;
+            width: 100% !important;
+            cursor: pointer !important;
+            font-size: 14px !important;
+            text-align: center !important;
+            line-height: 1.2 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-height: 50px !important;
+        }
+
+        #mc_embed_signup .button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 30px rgba(224, 127, 28, 0.6) !important;
+            background: var(--muted-gold) !important;
+        }
+
+        /* Livestream Mailchimp Styling */
+        .ticket-stream #mc_embed_signup label {
+            color: white !important;
+        }
+
+        .ticket-stream #mc_embed_signup input[type="email"] {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        }
+
+        .ticket-stream #mc_embed_signup input[type="email"]:focus {
+            border-color: white !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2) !important;
+            background: white !important;
+        }
+
+        .ticket-stream #mc_embed_signup .button {
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: var(--deep-charcoal) !important;
+            border-radius: 50px !important;
+            padding: 15px 30px !important;
+        }
+
+        .ticket-stream #mc_embed_signup .button:hover {
+            background: white !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background shapes -->
+    <div class="organic-shape" style="width: 300px; height: 300px; top: 10%; left: -5%;"></div>
+    <div class="organic-shape" style="width: 200px; height: 200px; top: 60%; right: -3%; animation-delay: 2s;"></div>
+    <div class="organic-shape" style="width: 250px; height: 250px; bottom: 20%; left: 70%; animation-delay: 4s;"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">PEVEN</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">HOME</a>
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#lineup" class="nav-link">LINEUP</a>
+                <a href="#tickets" class="nav-link">TICKETS</a>
+                <a href="#schedule" class="nav-link">SCHEDULE</a>
+                <a href="#support" class="nav-link">SUPPORT</a>
+                <a href="#dance" class="nav-link">DANCE</a>
+                <a href="#volunteer" class="nav-link">VOLUNTEER</a>
             </div>
-
-            <div className="modern-text text-xl md:text-3xl mb-2" style={{ color: "var(--deep-charcoal)" }}>
-              August 1st 9pm - August 2nd 9pm
-            </div>
-
-            <div className="max-w-4xl mx-auto mt-8">
-              <p className="modern-text text-lg md:text-xl mb-2" style={{ color: "var(--deep-charcoal)" }}>
-                A Berkeley Dance Party + Fundraiser for the voice of Chicago house.
-              </p>
-              <p className="bold-title text-xl md:text-2xl gradient-text italic">Not Just a Party, A Sonic Devotion.</p>
-            </div>
-          </div>
+            <button class="mobile-menu-button">MENU</button>
         </div>
-      </header>
+    </nav>
 
-      {/* Event Description */}
-      <section className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="earth-card p-10">
-            <div className="text-center">
-              <p className="modern-text text-lg leading-relaxed mb-6" style={{ color: "var(--deep-charcoal)" }}>
-                Experience the best of Chicago house and dance in solidarity with a living legend! More than a party,
-                this 24-hour celebration will rally spiritual and material support for house music icon Peven Everett as
-                he battles lung cancer.
-              </p>
-              <p
-                className="modern-text text-lg leading-relaxed mb-6 text-left"
-                style={{ color: "var(--deep-charcoal)" }}
-              >
-                Join us August 1st 9pm - August 2nd 9pm for:
-              </p>
-              <div className="text-left max-w-4xl mx-auto mb-6">
-                <p className="modern-text text-lg leading-relaxed mb-4" style={{ color: "var(--deep-charcoal)" }}>
-                  ✷ Round-the-clock DJ sets from both local artists and international selectors spinning vinyl,
-                  classics, and deep cuts in an immersive sound experience
-                </p>
-                <p className="modern-text text-lg leading-relaxed mb-4" style={{ color: "var(--deep-charcoal)" }}>
-                  ✷ Live and virtual cameos from artists inspired by Peven
-                </p>
-                <p className="modern-text text-lg leading-relaxed mb-4" style={{ color: "var(--deep-charcoal)" }}>
-                  ✷ Chicago-style food pop-ups to keep you nourished and dancing
-                </p>
-                <p className="modern-text text-lg leading-relaxed mb-6" style={{ color: "var(--deep-charcoal)" }}>
-                  ✷ A rare, intimate live set from Peven Everett himself
-                </p>
-              </div>
-              <p className="bold-title text-xl gradient-text">
-                Don't miss this once-in-a-lifetime chance to experience Peven's magic!
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tickets Section */}
-      <section id="tickets" className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h3
-            className="bold-title text-5xl text-center text-shadow-warm mb-16"
-            style={{ color: "var(--deep-charcoal)" }}
-          >
-            GET YOUR TICKETS
-          </h3>
-
-          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Live Experience Ticket */}
-            <div className="ticket-card ticket-premium">
-              <h4 className="bold-title text-2xl mb-4 text-white">LIVE EXPERIENCE</h4>
-              <p className="text-lg mb-6 text-white opacity-90">Complete 24-hour celebration</p>
-
-              <div className="space-y-3 mb-8">
-                <div className="ticket-feature text-white">All DJ sets and performances</div>
-                <div className="ticket-feature text-white">Live classes + workshops</div>
-                <div className="ticket-feature text-white">Chicago-inspired food pop-ups</div>
-                <div className="ticket-feature text-white">Peven Everett & Live Band performance</div>
-                <div className="ticket-feature text-white">You - serving looks, turned on, and fully in it</div>
-              </div>
-
-              <p className="text-white opacity-90 italic mb-6 px-6">
-                We're here to co-create the energy—with bold outfits, big movement, full-hearted connection, and
-                whatever magic you bring.
-              </p>
-
-              <div className="mt-8">
-                <div id="mc_embed_shell">
-                  <link
-                    href="//cdn-images.mailchimp.com/embedcode/classic-061523.css"
-                    rel="stylesheet"
-                    type="text/css"
-                  />
-                  <style type="text/css">
-                    {`#mc_embed_signup{background:#fff; false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 600px;}
-                    /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-                       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */`}
-                  </style>
-                  <div id="mc_embed_signup">
-                    <form
-                      action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=2a771fd69f&f_id=00af11e1f0"
-                      method="post"
-                      id="mc-embedded-subscribe-form"
-                      name="mc-embedded-subscribe-form"
-                      className="validate"
-                      target="_blank"
-                    >
-                      <div id="mc_embed_signup_scroll">
-                        <h2>Subscribe</h2>
-                        <div className="indicates-required">
-                          <span className="asterisk">*</span> indicates required
-                        </div>
-                        <div className="mc-field-group">
-                          <label htmlFor="mce-EMAIL">
-                            Email Address <span className="asterisk">*</span>
-                          </label>
-                          <input
-                            type="email"
-                            name="EMAIL"
-                            className="required email"
-                            id="mce-EMAIL"
-                            required
-                            defaultValue=""
-                          />
-                        </div>
-                        <div className="mc-field-group">
-                          <label htmlFor="mce-FNAME">First Name </label>
-                          <input type="text" name="FNAME" className=" text" id="mce-FNAME" defaultValue="" />
-                        </div>
-                        <div className="mc-field-group">
-                          <label htmlFor="mce-LNAME">Last Name </label>
-                          <input type="text" name="LNAME" className=" text" id="mce-LNAME" defaultValue="" />
-                        </div>
-                        <div id="mce-responses" className="clear">
-                          <div className="response" id="mce-error-response" style={{ display: "none" }}></div>
-                          <div className="response" id="mce-success-response" style={{ display: "none" }}></div>
-                        </div>
-                        <div aria-hidden="true" style={{ position: "absolute", left: "-5000px" }}>
-                          <input
-                            type="text"
-                            name="b_ae9a88298cca4be592172671a_2a771fd69f"
-                            tabIndex={-1}
-                            defaultValue=""
-                          />
-                        </div>
-                        <div className="clear">
-                          <input
-                            type="submit"
-                            name="subscribe"
-                            id="mc-embedded-subscribe"
-                            className="button"
-                            value="Down - I'll bring the energy"
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <script
-                    type="text/javascript"
-                    src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"
-                  ></script>
-                  <script
-                    type="text/javascript"
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                        (function($) {
-                          window.fnames = new Array(); 
-                          window.ftypes = new Array();
-                          fnames[0]='EMAIL';ftypes[0]='email';
-                          fnames[1]='FNAME';ftypes[1]='text';
-                          fnames[2]='LNAME';ftypes[2]='text';
-                          fnames[3]='ADDRESS';ftypes[3]='address';
-                          fnames[4]='PHONE';ftypes[4]='phone';
-                        }(jQuery));
-                        var $mcj = jQuery.noConflict(true);
-                      `,
-                    }}
-                  />
+    <!-- Header -->
+    <header id="home" class="section" style="padding: 4rem 1rem;">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h1 class="bold-title text-6xl gradient-text mb-6 text-shadow-warm">24 HOURS AT A TIME</h1>
+                <h2 class="accent-text text-5xl mb-4" style="color: var(--deep-charcoal);">WITH PEVEN & FRIENDS</h2>
+                
+                <div class="decorative-pattern mb-4">
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
                 </div>
-              </div>
-            </div>
 
-            {/* Livestream Ticket */}
-            <div className="ticket-card ticket-stream">
-              <h4 className="bold-title text-2xl mb-4 text-white">LIVESTREAM ACCESS</h4>
-              <p className="text-lg mb-6 text-white opacity-90">Join from anywhere in the world</p>
-
-              <div className="space-y-3 mb-8">
-                <div className="ticket-feature text-white">24-hour livestream access</div>
-                <div className="ticket-feature text-white">HD stream of Peven's performance</div>
-                <div className="ticket-feature text-white">Virtual chat with attendees</div>
-                <div className="ticket-feature text-white">Live donation opportunities via the stream</div>
-                <div className="ticket-feature text-white">Digital program & setlists</div>
-              </div>
-
-              <p className="text-white opacity-90 italic mb-6 text-center">Be part of the energy—even from afar.</p>
-
-              <div className="mt-8">
-                <div id="mc_embed_shell">
-                  <div id="mc_embed_signup">
-                    <form
-                      action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=6e87a369ec&f_id=00b211e1f0"
-                      method="post"
-                      id="mc-embedded-subscribe-form"
-                      name="mc-embedded-subscribe-form"
-                      className="validate"
-                      target="_blank"
-                    >
-                      <div id="mc_embed_signup_scroll">
-                        <div className="indicates-required">
-                          <span className="asterisk">*</span> indicates required
-                        </div>
-                        <div className="mc-field-group">
-                          <label htmlFor="mce-EMAIL">
-                            Email Address <span className="asterisk">*</span>
-                          </label>
-                          <input
-                            type="email"
-                            name="EMAIL"
-                            className="required email"
-                            id="mce-EMAIL"
-                            required
-                            defaultValue=""
-                          />
-                        </div>
-                        <div id="mce-responses" className="clear">
-                          <div className="response" id="mce-error-response" style={{ display: "none" }}></div>
-                          <div className="response" id="mce-success-response" style={{ display: "none" }}></div>
-                        </div>
-                        <div aria-hidden="true" style={{ position: "absolute", left: "-5000px" }}>
-                          <input
-                            type="text"
-                            name="b_ae9a88298cca4be592172671a_6e87a369ec"
-                            tabIndex={-1}
-                            defaultValue=""
-                          />
-                        </div>
-                        <div className="clear">
-                          <input
-                            type="submit"
-                            name="subscribe"
-                            id="mc-embedded-subscribe"
-                            className="button"
-                            value="Subscribe"
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+                <div class="modern-text text-xl mb-4" style="color: var(--deep-charcoal);">
+                    August 1st 9pm - August 2nd 9pm
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Schedule Section */}
-      <section id="schedule" className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h3
-            className="bold-title text-5xl text-center text-shadow-warm mb-16"
-            style={{ color: "var(--deep-charcoal)" }}
-          >
-            SCHEDULE
-          </h3>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="earth-card p-16 text-center">
-              <div className="decorative-pattern justify-center mb-8">
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-              </div>
-
-              <h4
-                className="bold-title text-2xl xl:text-3xl mb-8 text-shadow-warm"
-                style={{ color: "var(--muted-gold)" }}
-              >
-                COMING SOON!
-              </h4>
-
-              <p className="modern-text text-xl leading-relaxed" style={{ color: "var(--deep-charcoal)" }}>
-                The full 24-hour schedule with set times, workshops, and special performances will be announced soon.
-                Stay tuned for the complete lineup and timing details!
-              </p>
-
-              <div className="decorative-pattern justify-center mt-8">
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-                <div className="sunburst">✷</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Peven Bio */}
-      <section id="about" className="py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-2 text-center">
-              <h3 className="bold-title text-6xl xl:text-7xl gradient-text mb-6 text-shadow-warm leading-tight">
-                PEVEN
-                <br />
-                EVERETT
-              </h3>
-              <div className="accent-text text-2xl" style={{ color: "var(--muted-gold)" }}>
-                THE VOICE OF HOUSE MUSIC
-              </div>
-            </div>
-
-            <div className="lg:col-span-3">
-              <div className="earth-card p-4">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                  <div className="text-center">
-                    <div className="artist-sunburst" style={{ width: "220px", height: "220px" }}>
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jKW7T-s4_400x400.jpg-byJvlNvifSmZPuIqMiQU4I7Ebh89M3.jpeg"
-                        alt="Peven Everett"
-                        width={220}
-                        height={220}
-                        className="rounded-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="px-4">
-                    <p
-                      className="modern-text text-lg leading-relaxed mb-4 text-center"
-                      style={{ color: "var(--deep-charcoal)", textIndent: "1.5rem" }}
-                    >
-                      Peven Everett's influence on house music runs deep. Known for his electrifying voice,
-                      multi-instrumental talent, and timeless anthems like "Stuck" and "Gabriel" he's shaped the sound
-                      of soulful house and beyond—collaborating with other legends like Roy Davis Jr. and Theo Parrish,
-                      and bridging gospel, jazz, funk, and dance.
+                <div style="max-width: 64rem; margin: 0 auto;">
+                    <p class="modern-text text-lg mb-4" style="color: var(--deep-charcoal);">
+                        A Berkeley Dance Party + Fundraiser for the voice of Chicago house.
                     </p>
-                    <p
-                      className="modern-text text-lg leading-relaxed mb-6 text-center"
-                      style={{ color: "var(--deep-charcoal)", textIndent: "1.5rem" }}
-                    >
-                      This celebration honors not just his musical legacy, but his resilient spirit in his current
-                      battle with lung cancer.
+                    <p class="bold-title text-xl gradient-text" style="font-style: italic;">Not Just a Party, A Sonic Devotion.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Event Description -->
+    <section class="section">
+        <div class="container">
+            <div class="earth-card p-10">
+                <div class="text-center">
+                    <p class="modern-text text-lg mb-6" style="color: var(--deep-charcoal); line-height: 1.6;">
+                        Experience the best of Chicago house and dance in solidarity with a living legend! More than a party,
+                        this 24-hour celebration will rally spiritual and material support for house music icon Peven Everett as
+                        he battles lung cancer.
                     </p>
-                    <div className="text-center">
-                      <a
-                        href="https://mixmag.net/feature/peven-everett-interview-music-industry-gabriel-chicago-blackout"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="modern-button inline-block"
-                      >
-                        Recent Press
-                      </a>
+                    <p class="modern-text text-lg mb-6" style="color: var(--deep-charcoal); text-align: left; line-height: 1.6;">
+                        Join us August 1st 9pm - August 2nd 9pm for:
+                    </p>
+                    <div style="text-align: left; max-width: 64rem; margin: 0 auto;" class="mb-6">
+                        <p class="modern-text text-lg mb-4" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            ✷ Round-the-clock DJ sets from both local artists and international selectors spinning vinyl,
+                            classics, and deep cuts in an immersive sound experience
+                        </p>
+                        <p class="modern-text text-lg mb-4" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            ✷ Live and virtual cameos from artists inspired by Peven
+                        </p>
+                        <p class="modern-text text-lg mb-4" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            ✷ Chicago-style food pop-ups to keep you nourished and dancing
+                        </p>
+                        <p class="modern-text text-lg mb-6" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            ✷ A rare, intimate live set from Peven Everett himself
+                        </p>
                     </div>
-                  </div>
+                    <p class="bold-title text-xl gradient-text">
+                        Don't miss this once-in-a-lifetime chance to experience Peven's magic!
+                    </p>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* DJ Grid */}
-      <section id="lineup" className="py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h3
-            className="accent-text text-5xl text-center mb-12 text-shadow-warm"
-            style={{ color: "var(--muted-gold)" }}
-          >
-            AND FRIENDS
-          </h3>
-
-          <div className="space-y-8">
-            {/* Top row - 5 artists */}
-            <div className="grid grid-cols-5 gap-6 justify-items-center">
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-frpDiS6pBkdshpuhfD0OPWeBMhrJFs.png"
-                    alt="Coflo"
-                    width={150}
-                    height={150}
-                    className="coflo-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Coflo
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-sf1hgRZIaPQhLmueBt1YVJ69fGaFYg.png"
-                    alt="Nina Sol"
-                    width={150}
-                    height={150}
-                    className="nina-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Nina Sol
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/612cf93ced2d6444cca8d765_Jayvi-Velasco.jpg-MOPxo1vytVp9H22EZ0FpwJeuuUV4bk.jpeg"
-                    alt="Jayvi"
-                    width={150}
-                    height={150}
-                    className="rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Jayvi Velasco
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-09%20at%2012.00.52%E2%80%AFPM-E0mAdyBZ2jU5R1YpF9iNXSqIht1nof.png"
-                    alt="DJ Aristotle"
-                    width={150}
-                    height={150}
-                    className="aristotle-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  DJ Aristotle
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-adV82yyXM3yD4CbkRfwQefx3DtLih5.png"
-                    alt="Spiñorita"
-                    width={150}
-                    height={150}
-                    className="rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Spiñorita
-                </p>
-              </div>
-            </div>
-
-            {/* Bottom row - 4 artists */}
-            <div className="grid grid-cols-4 gap-6 justify-items-center max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-09%20at%2011.53.21%E2%80%AFAM-JeMSU2nIH4gwIvlLgm3r3RvyvI1aWn.png"
-                    alt="SEEPS"
-                    width={150}
-                    height={150}
-                    className="seeps-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  SEEPS
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dj-rashida-440nw-10309650p.jpg-VkB9wkUYDZPaONrLNRHlohluocMmNX.jpeg"
-                    alt="DJ Rashida"
-                    width={150}
-                    height={150}
-                    className="rashida-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  DJ Rashida
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-27%20at%2010.09.32%E2%80%AFAM-HXyewozf2VRx6nsur1E7gTxjPBz6RJ.png"
-                    alt="Cecil Carthen"
-                    width={150}
-                    height={150}
-                    className="cecil-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Cecil Carthen
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="artist-sunburst" style={{ width: "150px", height: "150px", marginBottom: "2.5rem" }}>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0524.jpg-BGeibQsyAkDmrPoamD6jHNzyMhuKwK.jpeg"
-                    alt="Marcel Surreal"
-                    width={150}
-                    height={150}
-                    className="marcel-img rounded-full object-cover"
-                  />
-                </div>
-                <p className="modern-text text-base" style={{ color: "var(--deep-charcoal)" }}>
-                  Marcel Surreal
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Support Section */}
-      <section id="support" className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-2 text-center">
-              <h3
-                className="bold-title text-5xl text-shadow-warm leading-tight"
-                style={{ color: "var(--deep-charcoal)" }}
-              >
-                SUPPORT
-                <br />
-                PEVEN
-              </h3>
-            </div>
-            <div className="lg:col-span-3">
-              <div className="earth-card p-10">
-                <p className="modern-text text-xl mb-8 leading-relaxed" style={{ color: "var(--deep-charcoal)" }}>
-                  Show your love by donating to Peven's GoFundMe or purchasing his music on Bandcamp. Every contribution
-                  goes directly toward his ongoing treatment and supports the continued creation of his soulful sound.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <a
-                    href="https://www.gofundme.com/f/donate-for-pevens-cancer-treatment"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="modern-button block text-center py-6 text-lg"
-                  >
-                    DONATE TO GOFUNDME
-                  </a>
-                  <a
-                    href="https://peveneverettandco.bandcamp.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="modern-button block text-center py-6 text-lg"
-                  >
-                    BUY MUSIC ON BANDCAMP
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Dance Challenge */}
-      <section id="dance" className="py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="earth-card p-10">
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div className="flex flex-col justify-center h-full">
-                <h4
-                  className="bold-title text-4xl xl:text-5xl mb-6 text-shadow-warm leading-tight text-center"
-                  style={{ color: "var(--deep-charcoal)" }}
-                >
-                  #PEVEN DANCE CHALLENGE
-                </h4>
-                <p className="modern-text text-lg leading-relaxed mb-6" style={{ color: "var(--deep-charcoal)" }}>
-                  Get ready to move! Film yourself freestyling for 30 seconds to 1 minute to any Peven track and post it
-                  using{" "}
-                  <span className="bold-title" style={{ color: "var(--bold-orange)" }}>
-                    #PEVEN
-                  </span>{" "}
-                  and tag{" "}
-                  <span className="bold-title" style={{ color: "var(--bold-orange)" }}>
-                    @OpenDoors.Home
-                  </span>{" "}
-                  for a shot at winning{" "}
-                  <span className="bold-title text-2xl" style={{ color: "var(--muted-gold)" }}>
-                    a tip of $400!
-                  </span>
-                </p>
-                <div className="accent-text text-xl" style={{ color: "var(--cool-cyan)" }}>
-                  READY TO <em>PUT YOUR BACK IN IT?</em> LET'S GO!
-                </div>
-              </div>
-
-              <div>
-                <h5 className="modern-text text-lg mb-4" style={{ color: "var(--muted-gold)" }}>
-                  Latest #PEVEN Videos
-                </h5>
-                <div className="video-grid">
-                  {["Dance videos will appear here", "Share your moves!", "Tag @OpenDoors.Home", "Use #PEVEN"].map(
-                    (text, index) => (
-                      <div key={index} className="video-placeholder">
-                        <div className="text-center">
-                          <div className="decorative-circle mb-2"></div>
-                          <div className="text-sm">{text}</div>
-                        </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Volunteer Section */}
-      <section id="volunteer" className="py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h3
-              className="bold-title text-5xl text-center text-shadow-warm mb-6"
-              style={{ color: "var(--deep-charcoal)" }}
-            >
-              VOLUNTEER WITH US
+    <!-- Tickets Section -->
+    <section id="tickets" class="section" style="padding: 4rem 1rem;">
+        <div class="container">
+            <h3 class="bold-title text-5xl text-center text-shadow-warm mb-16" style="color: var(--deep-charcoal);">
+                GET YOUR TICKETS
             </h3>
-            <p
-              className="modern-text text-xl leading-relaxed max-w-4xl mx-auto mb-8"
-              style={{ color: "var(--deep-charcoal)" }}
-            >
-              We're looking for passionate volunteers to help with everything from taking tickets to event breakdown.
-              Join our team and be part of something special!
-            </p>
-          </div>
-          <div className="text-center">
-            <a
-              href="https://docs.google.com/forms/d/1YwKOeomNfd9iDgkAwhlhys1Ofye637AeFVeOKg4CIQo/edit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="modern-button inline-block text-lg py-6 px-8"
-            >
-              Apply Now
-            </a>
-          </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="earth-card p-10 text-center">
-            <h4 className="bold-title text-5xl mb-8" style={{ color: "var(--deep-charcoal)" }}>
-              STAY CONNECTED
-            </h4>
-            <div className="mb-8">
-              <a
-                href="https://www.instagram.com/opendoors.home/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="modern-button inline-block mr-4 mb-4 text-lg"
-              >
-                Follow @opendoors.home
-              </a>
-            </div>
-            <div>
-              <p className="modern-text text-lg mb-6" style={{ color: "var(--deep-charcoal)" }}>
-                Subscribe to Open Doors Events:
-              </p>
+            <div class="grid grid-2" style="max-width: 80rem; margin: 0 auto;">
+                <!-- Live Experience Ticket -->
+                <div class="ticket-card ticket-premium">
+                    <h4 class="bold-title text-2xl mb-4" style="color: white;">LIVE EXPERIENCE</h4>
+                    <p class="text-lg mb-6" style="color: white; opacity: 0.9;">Complete 24-hour celebration</p>
 
-              <div id="mc_embed_shell">
-                <div id="mc_embed_signup">
-                  <form
-                    action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=f948afc471&f_id=00b311e1f0"
-                    method="post"
-                    id="mc-embedded-subscribe-form"
-                    name="mc-embedded-subscribe-form"
-                    className="validate"
-                    target="_blank"
-                  >
-                    <div id="mc_embed_signup_scroll">
-                      <div className="indicates-required">
-                        <span className="asterisk">*</span> indicates required
-                      </div>
-                      <div className="mc-field-group">
-                        <label htmlFor="mce-EMAIL">
-                          Email Address <span className="asterisk">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          name="EMAIL"
-                          className="required email"
-                          id="mce-EMAIL"
-                          required
-                          defaultValue=""
-                        />
-                      </div>
-                      <div className="mc-field-group">
-                        <label htmlFor="mce-FNAME">First Name</label>
-                        <input type="text" name="FNAME" className="text" id="mce-FNAME" defaultValue="" />
-                      </div>
-                      <div className="mc-field-group">
-                        <label htmlFor="mce-LNAME">Last Name</label>
-                        <input type="text" name="LNAME" className="text" id="mce-LNAME" defaultValue="" />
-                      </div>
-                      <div id="mce-responses" className="clear">
-                        <div className="response" id="mce-error-response" style={{ display: "none" }}></div>
-                        <div className="response" id="mce-success-response" style={{ display: "none" }}></div>
-                      </div>
-                      <div aria-hidden="true" style={{ position: "absolute", left: "-5000px" }}>
-                        <input
-                          type="text"
-                          name="b_ae9a88298cca4be592172671a_f948afc471"
-                          tabIndex={-1}
-                          defaultValue=""
-                        />
-                      </div>
-                      <div className="clear">
-                        <input
-                          type="submit"
-                          name="subscribe"
-                          id="mc-embedded-subscribe"
-                          className="button"
-                          value="Step Inside The Vibe"
-                        />
-                      </div>
+                    <div style="margin-bottom: 2rem;">
+                        <div class="ticket-feature">All DJ sets and performances</div>
+                        <div class="ticket-feature">Live classes + workshops</div>
+                        <div class="ticket-feature">Chicago-inspired food pop-ups</div>
+                        <div class="ticket-feature">Peven Everett & Live Band performance</div>
+                        <div class="ticket-feature">You - serving looks, turned on, and fully in it</div>
                     </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="mt-12 text-center">
-            <div className="decorative-pattern">
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
-              <div className="sunburst">✷</div>
+                    <p style="color: white; opacity: 0.9; font-style: italic; margin-bottom: 1.5rem; padding: 0 1.5rem;">
+                        We're here to co-create the energy—with bold outfits, big movement, full-hearted connection, and
+                        whatever magic you bring.
+                    </p>
+
+                    <div style="margin-top: 2rem;">
+                        <!-- Mailchimp Form for Live Experience -->
+                        <div id="mc_embed_signup">
+                            <form action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=2a771fd69f&f_id=00af11e1f0" method="post" target="_blank">
+                                <div class="indicates-required">
+                                    <span class="asterisk">*</span> indicates required
+                                </div>
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                                    <input type="email" name="EMAIL" id="mce-EMAIL" required>
+                                </div>
+                                <div class="mc-field-group">
+                                    <label for="mce-FNAME">First Name</label>
+                                    <input type="text" name="FNAME" id="mce-FNAME">
+                                </div>
+                                <div class="mc-field-group">
+                                    <label for="mce-LNAME">Last Name</label>
+                                    <input type="text" name="LNAME" id="mce-LNAME">
+                                </div>
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                    <input type="text" name="b_ae9a88298cca4be592172671a_2a771fd69f" tabindex="-1">
+                                </div>
+                                <div class="clear">
+                                    <input type="submit" value="Down - I'll bring the energy" name="subscribe" class="button">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Livestream Ticket -->
+                <div class="ticket-card ticket-stream">
+                    <h4 class="bold-title text-2xl mb-4" style="color: white;">LIVESTREAM ACCESS</h4>
+                    <p class="text-lg mb-6" style="color: white; opacity: 0.9;">Join from anywhere in the world</p>
+
+                    <div style="margin-bottom: 2rem;">
+                        <div class="ticket-feature">24-hour livestream access</div>
+                        <div class="ticket-feature">HD stream of Peven's performance</div>
+                        <div class="ticket-feature">Virtual chat with attendees</div>
+                        <div class="ticket-feature">Live donation opportunities via the stream</div>
+                        <div class="ticket-feature">Digital program & setlists</div>
+                    </div>
+
+                    <p style="color: white; opacity: 0.9; font-style: italic; margin-bottom: 1.5rem; text-align: center;">
+                        Be part of the energy—even from afar.
+                    </p>
+
+                    <div style="margin-top: 2rem;">
+                        <!-- Mailchimp Form for Livestream -->
+                        <div id="mc_embed_signup">
+                            <form action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=6e87a369ec&f_id=00b211e1f0" method="post" target="_blank">
+                                <div class="indicates-required">
+                                    <span class="asterisk">*</span> indicates required
+                                </div>
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL-stream">Email Address <span class="asterisk">*</span></label>
+                                    <input type="email" name="EMAIL" id="mce-EMAIL-stream" required>
+                                </div>
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                    <input type="text" name="b_ae9a88298cca4be592172671a_6e87a369ec" tabindex="-1">
+                                </div>
+                                <div class="clear">
+                                    <input type="submit" value="Subscribe" name="subscribe" class="button">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p className="modern-text text-sm opacity-75 mt-4" style={{ color: "var(--deep-charcoal)" }}>
-              © 2024 Open Doors. Made with love for Peven Everett
-            </p>
-          </div>
         </div>
-      </footer>
-    </div>
-  )
-}
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section" style="padding: 4rem 1rem;">
+        <div class="container">
+            <h3 class="bold-title text-5xl text-center text-shadow-warm mb-16" style="color: var(--deep-charcoal);">
+                SCHEDULE
+            </h3>
+
+            <div style="max-width: 64rem; margin: 0 auto;">
+                <div class="earth-card p-16 text-center">
+                    <div class="decorative-pattern mb-8">
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                    </div>
+
+                    <h4 class="bold-title text-2xl mb-8 text-shadow-warm" style="color: var(--muted-gold);">
+                        COMING SOON!
+                    </h4>
+
+                    <p class="modern-text text-xl" style="color: var(--deep-charcoal); line-height: 1.6;">
+                        The full 24-hour schedule with set times, workshops, and special performances will be announced soon.
+                        Stay tuned for the complete lineup and timing details!
+                    </p>
+
+                    <div class="decorative-pattern" style="margin-top: 2rem;">
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                        <div class="sunburst">✷</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peven Bio -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="peven-bio">
+                <div class="text-center">
+                    <h3 class="bold-title text-6xl gradient-text mb-6 text-shadow-warm" style="line-height: 1.1;">
+                        PEVEN<br>EVERETT
+                    </h3>
+                    <div class="accent-text text-2xl" style="color: var(--muted-gold);">THE VOICE OF HOUSE MUSIC</div>
+                </div>
+
+                <div class="earth-card p-4">
+                    <div class="peven-content">
+                        <div class="text-center">
+                            <div class="artist-sunburst" style="width: 220px; height: 220px;">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jKW7T-s4_400x400.jpg-byJvlNvifSmZPuIqMiQU4I7Ebh89M3.jpeg" alt="Peven Everett" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="peven-text">
+                            <p class="modern-text text-lg" style="color: var(--deep-charcoal);">
+                                Peven Everett's influence on house music runs deep. Known for his electrifying voice,
+                                multi-instrumental talent, and timeless anthems like "Stuck" and "Gabriel" he's shaped the sound
+                                of soulful house and beyond—collaborating with other legends like Roy Davis Jr. and Theo Parrish,
+                                and bridging gospel, jazz, funk, and dance.
+                            </p>
+                            <p class="modern-text text-lg" style="color: var(--deep-charcoal);">
+                                This celebration honors not just his musical legacy, but his resilient spirit in his current
+                                battle with lung cancer.
+                            </p>
+                            <div class="text-center">
+                                <a href="https://mixmag.net/feature/peven-everett-interview-music-industry-gabriel-chicago-blackout" target="_blank" rel="noopener noreferrer" class="modern-button">
+                                    Recent Press
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DJ Grid -->
+    <section id="lineup" class="section">
+        <div class="container">
+            <h3 class="accent-text text-5xl text-center mb-12 text-shadow-warm" style="color: var(--muted-gold);">
+                AND FRIENDS
+            </h3>
+
+            <div>
+                <!-- Top row - 5 artists -->
+                <div class="dj-grid">
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-frpDiS6pBkdshpuhfD0OPWeBMhrJFs.png" alt="Coflo">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Coflo</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-sf1hgRZIaPQhLmueBt1YVJ69fGaFYg.png" alt="Nina Sol">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Nina Sol</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/612cf93ced2d6444cca8d765_Jayvi-Velasco.jpg-MOPxo1vytVp9H22EZ0FpwJeuuUV4bk.jpeg" alt="Jayvi">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Jayvi Velasco</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-09%20at%2012.00.52%E2%80%AFPM-E0mAdyBZ2jU5R1YpF9iNXSqIht1nof.png" alt="DJ Aristotle">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">DJ Aristotle</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-adV82yyXM3yD4CbkRfwQefx3DtLih5.png" alt="Spiñorita">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Spiñorita</p>
+                    </div>
+                </div>
+
+                <!-- Bottom row - 4 artists -->
+                <div class="dj-grid-bottom">
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-09%20at%2011.53.21%E2%80%AFAM-JeMSU2nIH4gwIvlLgm3r3RvyvI1aWn.png" alt="SEEPS">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">SEEPS</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dj-rashida-440nw-10309650p.jpg-VkB9wkUYDZPaONrLNRHlohluocMmNX.jpeg" alt="DJ Rashida">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">DJ Rashida</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-06-27%20at%2010.09.32%E2%80%AFAM-HXyewozf2VRx6nsur1E7gTxjPBz6RJ.png" alt="Cecil Carthen">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Cecil Carthen</p>
+                    </div>
+                    <div class="dj-item">
+                        <div class="artist-sunburst">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0524.jpg-BGeibQsyAkDmrPoamD6jHNzyMhuKwK.jpeg" alt="Marcel Surreal">
+                        </div>
+                        <p class="modern-text" style="color: var(--deep-charcoal);">Marcel Surreal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="section">
+        <div class="container">
+            <div class="grid grid-2" style="align-items: center;">
+                <div class="text-center">
+                    <h3 class="bold-title text-5xl text-shadow-warm" style="color: var(--deep-charcoal); line-height: 1.1;">
+                        SUPPORT<br>PEVEN
+                    </h3>
+                </div>
+                <div>
+                    <div class="earth-card p-10">
+                        <p class="modern-text text-xl mb-8" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            Show your love by donating to Peven's GoFundMe or purchasing his music on Bandcamp. Every contribution
+                            goes directly toward his ongoing treatment and supports the continued creation of his soulful sound.
+                        </p>
+                        <div class="grid grid-2">
+                            <a href="https://www.gofundme.com/f/donate-for-pevens-cancer-treatment" target="_blank" rel="noopener noreferrer" class="modern-button text-center" style="padding: 1.5rem; font-size: 1.125rem;">
+                                DONATE TO GOFUNDME
+                            </a>
+                            <a href="https://peveneverettandco.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="modern-button text-center" style="padding: 1.5rem; font-size: 1.125rem;">
+                                BUY MUSIC ON BANDCAMP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dance Challenge -->
+    <section id="dance" class="section">
+        <div class="container">
+            <div class="earth-card p-10">
+                <div class="grid grid-2">
+                    <div style="display: flex; flex-direction: column; justify-content: center;">
+                        <h4 class="bold-title text-4xl mb-6 text-shadow-warm text-center" style="color: var(--deep-charcoal); line-height: 1.1;">
+                            #PEVEN DANCE CHALLENGE
+                        </h4>
+                        <p class="modern-text text-lg mb-6" style="color: var(--deep-charcoal); line-height: 1.6;">
+                            Get ready to move! Film yourself freestyling for 30 seconds to 1 minute to any Peven track and post it
+                            using <span class="bold-title" style="color: var(--bold-orange);">#PEVEN</span> and tag 
+                            <span class="bold-title" style="color: var(--bold-orange);">@OpenDoors.Home</span> for a shot at winning 
+                            <span class="bold-title text-2xl" style="color: var(--muted-gold);">a tip of $400!</span>
+                        </p>
+                        <div class="accent-text text-xl" style="color: var(--cool-cyan);">
+                            READY TO <em>PUT YOUR BACK IN IT?</em> LET'S GO!
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 class="modern-text text-lg mb-4" style="color: var(--muted-gold);">Latest #PEVEN Videos</h5>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="aspect-ratio: 9/16; background: linear-gradient(135deg, var(--cool-cyan), var(--muted-gold)); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; text-align: center; padding: 1rem; border: 2px solid var(--bold-orange);">
+                                <div>
+                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--bold-orange); margin: 0 auto 0.5rem;"></div>
+                                    <div style="font-size: 0.875rem;">Dance videos will appear here</div>
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 9/16; background: linear-gradient(135deg, var(--cool-cyan), var(--muted-gold)); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; text-align: center; padding: 1rem; border: 2px solid var(--bold-orange);">
+                                <div>
+                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--bold-orange); margin: 0 auto 0.5rem;"></div>
+                                    <div style="font-size: 0.875rem;">Share your moves!</div>
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 9/16; background: linear-gradient(135deg, var(--cool-cyan), var(--muted-gold)); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; text-align: center; padding: 1rem; border: 2px solid var(--bold-orange);">
+                                <div>
+                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--bold-orange); margin: 0 auto 0.5rem;"></div>
+                                    <div style="font-size: 0.875rem;">Tag @OpenDoors.Home</div>
+                                </div>
+                            </div>
+                            <div style="aspect-ratio: 9/16; background: linear-gradient(135deg, var(--cool-cyan), var(--muted-gold)); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; text-align: center; padding: 1rem; border: 2px solid var(--bold-orange);">
+                                <div>
+                                    <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--bold-orange); margin: 0 auto 0.5rem;"></div>
+                                    <div style="font-size: 0.875rem;">Use #PEVEN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="section">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h3 class="bold-title text-5xl text-center text-shadow-warm mb-6" style="color: var(--deep-charcoal);">
+                    VOLUNTEER WITH US
+                </h3>
+                <p class="modern-text text-xl" style="color: var(--deep-charcoal); line-height: 1.6; max-width: 64rem; margin: 0 auto;">
+                    We're looking for passionate volunteers to help with everything from taking tickets to event breakdown.
+                    Join our team and be part of something special!
+                </p>
+            </div>
+            <div class="text-center">
+                <a href="https://docs.google.com/forms/d/1YwKOeomNfd9iDgkAwhlhys1Ofye637AeFVeOKg4CIQo/edit" target="_blank" rel="noopener noreferrer" class="modern-button" style="font-size: 1.125rem; padding: 1.5rem 2rem;">
+                    Apply Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section">
+        <div class="container">
+            <div class="earth-card p-10 text-center">
+                <h4 class="bold-title text-5xl mb-8" style="color: var(--deep-charcoal);">STAY CONNECTED</h4>
+                <div class="mb-8">
+                    <a href="https://www.instagram.com/opendoors.home/" target="_blank" rel="noopener noreferrer" class="modern-button" style="font-size: 1.125rem; margin-right: 1rem; margin-bottom: 1rem;">
+                        Follow @opendoors.home
+                    </a>
+                </div>
+                <div>
+                    <p class="modern-text text-lg mb-6" style="color: var(--deep-charcoal);">Subscribe to Open Doors Events:</p>
+
+                    <!-- Footer Mailchimp Form -->
+                    <div id="mc_embed_signup">
+                        <form action="https://house.us8.list-manage.com/subscribe/post?u=ae9a88298cca4be592172671a&id=f948afc471&f_id=00b311e1f0" method="post" target="_blank">
+                            <div class="indicates-required">
+                                <span class="asterisk">*</span> indicates required
+                            </div>
+                            <div class="mc-field-group">
+                                <label for="mce-EMAIL-footer">Email Address <span class="asterisk">*</span></label>
+                                <input type="email" name="EMAIL" id="mce-EMAIL-footer" required>
+                            </div>
+                            <div class="mc-field-group">
+                                <label for="mce-FNAME-footer">First Name</label>
+                                <input type="text" name="FNAME" id="mce-FNAME-footer">
+                            </div>
+                            <div class="mc-field-group">
+                                <label for="mce-LNAME-footer">Last Name</label>
+                                <input type="text" name="LNAME" id="mce-LNAME-footer">
+                            </div>
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                <input type="text" name="b_ae9a88298cca4be592172671a_f948afc471" tabindex="-1">
+                            </div>
+                            <div class="clear">
+                                <input type="submit" value="Step Inside The Vibe" name="subscribe" class="button">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; text-align: center;">
+                <div class="decorative-pattern">
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
+                    <div class="sunburst">✷</div>
+                </div>
+                <p class="modern-text" style="font-size: 0.875rem; opacity: 0.75; margin-top: 1rem; color: var(--deep-charcoal);">
+                    © 2024 Open Doors. Made with love for Peven Everett
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mailchimp Scripts -->
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+        (function($) {
+            window.fnames = new Array(); 
+            window.ftypes = new Array();
+            fnames[0]='EMAIL';ftypes[0]='email';
+            fnames[1]='FNAME';ftypes[1]='text';
+            fnames[2]='LNAME';ftypes[2]='text';
+            fnames[3]='ADDRESS';ftypes[3]='address';
+            fnames[4]='PHONE';ftypes[4]='phone';
+            fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+            fnames[6]='COMPANY';ftypes[6]='text';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+    </script>
+
+    <!-- Smooth Scrolling Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
